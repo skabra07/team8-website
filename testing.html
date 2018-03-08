@@ -9,6 +9,7 @@
 
     <title>iPoorly</title>
     <meta name="description" content="Team 8 UCL Systems Engineering project for ASKSNIFF.">
+    <link rel="icon" href="img/fav.ico" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,12 +31,17 @@
             border-collapse: collapse;
             border-spacing: 0;
             border:2px solid #000000;
+            background: rgb(187, 187, 187);
+            width:100%;
+        }
+        thead{
+            background: rgb(85, 85, 85);
         }
         th{
             border:2px solid #000000;
             padding: 10px;
+            
         }
-
         td{
             border:1px solid #000000;
             padding: 10px;
@@ -107,20 +113,275 @@
                 </div>
                 <div class="col-md-9">            
                     <h1 id="system-testing">System Testing</h1>
+                    <p>For our system testing we checked if all the external components that the website uses were up and ready to be used before the website could start. This includes checking if we could connect to the database using the correct credentials, the cache server was also running and check if none of the python files had any syntax errors on them. If any of the system tests failed, then the django server would not start and the website would be offline. If a system check fails, django will try to run the system checks again after every minute (if the problem is a connection error to the database or cache).</p>
                     
                     <h1 id="stress-testing">Stress Testing</h1>
-                                            
-                    <h1 id="performance-testing">Performance Testing</h1>
-
-                    <h1 id="unit-testing">Unit and Integration Testing</h1>
+                    <p>To test the load on our website we decided to use Locustio. It an open source python framework for stress performance. We tested 100 users per second on the website scaled up to 3 instances of the website and also on just one instance of the website. The load tests helped us get an idea how much load the website could take before the website started to fail or take to long to reply. Here is the result for only one instance of the website running:</p>
+                    <figure><img src="img/stress_one_table.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.1 - Stress results for one instance</figcaption></figure> 
+                    <figure><img src="img/stress_one_graph.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.2 - Average Response Time for one instance</figcaption></figure>                      
+                    <p>Results for the website with 3 instances:</p>
+                    <figure><img src="img/stress_three_table.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.3 - Stress results for three instance</figcaption></figure> 
+                    <figure><img src="img/stress_three_graph.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.4 - Average Response Time for one instance</figcaption></figure> 
+                    <p>From the graphs we saw the reduction in the average response time when we scaled up the website instances. This helped us know that when there is a large traffic on the website we can easily scale up to help manage the high traffic. We can also see there is a large difference between the max and min of /symptoms/information/1. This is because the max is when the link is called the first time. The page is then cached and so when it is called again the time taken reduces. </p>
                     
+                    <h1 id="performance-testing">Performance Testing</h1>
+                    <p>After testing the max load on our website before it became very slow, we wanted to test how the website performed in terms of how many database calls are made and how fast the website is (for a user). We used Django Silk which is a live profiling and inspection tool for the django framework. This helped us see how long each page took to respond, all the information about a request (the SQL calls and the request headers with response). The stress testing tested how much volume the website could take but the performance test checks how fast the system is.</p>
+                    <figure><img src="img/performance0.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.1 - Summary of the best and worst processing time of a call</figcaption></figure> 
+                    <figure><img src="img/performance1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.2 - Summary of an SQL execution for a request</figcaption></figure> 
+                    <figure><img src="img/performance2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.3 - Summary of a response for a request</figcaption></figure> 
+                    
+                    <h1 id="unit-testing">Unit and Integration Testing</h1>
+                    <p>We used the Test-driven development approach for the project. This meant we write failing unit tests for new functions/features before we implemented them. Once we wrote the tests we then added the functions/features. This then ensured the tests passed. Using this approach we were able to test all the main functionalities of the website and any changes we made throughout the development cycle which could have caused the application to break were caught by the unit tests.We wrote unit and integration tests for the forms, the views and the models.<br><b>Form tests</b> - These tests checked if the form used in the website captured the correct data. This was to ensure any wrong format of data wasn't accepted and saved into the database as this would cause database to lose its integrity. Example of these tests include sending text longer than the max text for a field, wrong format of the data, text in an integer field and empty data for required fields.<br><b>Model tests</b> - These tests ensured that the website was able to store the correct data in the correct table. It also checked if the type of data for a field was correct and it checked if relations were maintained between tables. It also checked if one data was removed, were the relevant data that had a relation with deleted data removed as well i.e if a child was deleted, were the diary log of the child also deleted.<br><b>Views tests</b> - These tests ensured that the correct html page was rendered and returned for a specific url. It also ensured all the correct and relevant information for a url were sent to the user. The tests also checked if the ajax scripts were working correctly and if no page that requires a login could be seen without logging in.<br><br>The jenkins server ran these tests on a new code before updating the website with the latest code.</p>
+                    <figure><img src="img/unittest.png" class="center-block" width="100%"><figcaption class="text-center">Fig 3.1 - Success Message when all tests pass</figcaption></figure> 
                     <h1 id="acceptance-testing">Acceptance Testing</h1>
-
+                    <h3>Test Cases</h3>
+                    <p>On the 20th of February our client carried out a parents panel test. A group of parents were asked to carry out tasks on the website that we had set before hand. Below are a list of the tasks the parents carried out and the results from those tasks . The tasks were carried out on a windows 10 desktop using Chrome as the browser.</p>
+                    <div id="acceptance-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                          <li data-target="#acceptance-carousel" data-slide-to="0" class="active"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="1"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="2"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="3"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="4"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="5"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="6"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="7"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="8"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="9"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="10"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="11"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="12"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="13"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="14"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="15"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="16"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="17"></li>
+                          <li data-target="#acceptance-carousel" data-slide-to="18"></li>
+                          
+                        </ol>
+                        
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item active">
+                            <img src="img/tc/1.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/2.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/3.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/4.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/5.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/6.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/7.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/8.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/9.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/10.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/11.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/12.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/13.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/14.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/15.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/16.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/17.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/18.png" style="width:100%;">
+                          </div>
+                          <div class="item active">
+                            <img src="img/tc/19.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/tc/2.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/tc/3.png" style="width:100%;">
+                          </div>
+                        </div>
+                    
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" data-target="#acceptance-carousel" data-slide="prev" onclick="$('#acceptance-carousel').carousel('prev')">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" data-target="#acceptance-carousel" data-slide="next" onclick="$('#acceptance-carousel').carousel('next')">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                    <h3>Feedback from Client and Testers</h3>
+                    <p>The testers included fellow CS students at UCL and parents from the parents panel. Below is a list of the feedback received from the testers and the client</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Positive Feedback</th>
+                                <th class="text-center">Action Taken</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Parents loved the Skip login option as this allows them to explore the website before deciding if they want to make an account or not</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Liked Select age page as it was straightforward and easy to use/understand</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Like that subheadings change background color when you hover over it</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Improvements</th>
+                                <th class="text-center">Action Taken</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Did not like seeing the information on login page about login benefits and skip login benefits </td>
+                                <td>Moved in the information to be shown when the user hovers over the Login button to skip login button</td>
+                            </tr>
+                            <tr>
+                                <td>Wanted a better icon to identify the Call 999 pop up modal</td>
+                                <td>Changed the icon to 999 with red color background and white bold font to find it easily</td>
+                            </tr>
+                            <tr>
+                                <td>Want the call 999 option on every page instead of navigation bar which collapses on small screens</td>
+                                <td>Made the 999 icon as a fixed icon on the bottom right.</td>
+                            </tr>
+                            <tr>
+                                <td>Be able to see the content of the call 999 modal without scrolling</td>
+                                <td>Reduced the font size and increased the width and height of the modal</td>
+                            </tr>
+                            <tr>
+                                <td>Age group reminder on each page to be bold and bigger font</td>
+                                <td>Increased the font and made it bold</td>
+                            </tr>
+                            <tr>
+                                <td>The title fonts on symptoms pages were too big and the content were too small</td>
+                                <td>Reduced the title font size and increased the content font size</td>
+                            </tr>
+                            <tr>
+                                <td>More helpful visuals for texts with hyperlinks</td>
+                                <td>Hyperlinks become bold and underlined when mouse is over it</td>
+                            </tr>
+                            <tr>
+                                <td>Dislike the table layout. Hard to differentiate between headers and body of table</td>
+                                <td>Made the headers of a slightly bigger font and bold. Changed background color of headers to help visually differentiate between header and body of the table</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
                     <h1 id="responsive-testing">Responsive design / UI Testing</h1>
+                    <p>Though the unit and integration tests we were able to check if our backend code was correct. However, we also need to test our front end code. These tests included checking if the form was visible, the forms could be filled and submitted. The buttons did what they were meant to do and to also check all the information was visible to the user. For front end testing we decided to use Selenium (with headless webdriver to run the tests in the jenkins server). This started an instance of the browser, without opening an actual browser, and then started going through each page and checking if the elements that should be in a page are actually there.To check if the website was responsive we used Google Chrome Inspect to check how the web page looked like on different screen sizes.</p>
 
                     <h1 id="compatibility-testing">Compatibility Testing</h1>
-
+                    <p>To test if the website was compatible on many browsers we decide to use an online tool called http://browsershots.org. This takes a screenshot of the website on around 168 browsers. We manually went through the list of screenshots for each browser to create the following compatible browsers and their versions:</p>
+                    <table class="text-center">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Browser</th>
+                                <th class="text-center">Compatible Browser Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Firefox</td>
+                                <td>29+</td>
+                            </tr>
+                            <tr>
+                                <td>Chrome</td>
+                                <td>10+</td>
+                            </tr>
+                            <tr>
+                                <td>Safari</td>
+                                <td>9+</td>
+                            </tr>
+                            <tr>
+                                <td>Opera</td>
+                                <td>11.61+</td>
+                            </tr>
+                            <tr>
+                                <td>Internet Explorer</td>
+                                <td>10+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <figure><img src="img/compatibility2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 4.1 - Results from http://browsershots.org</figcaption></figure> 
+                    <figure><img src="img/compatibility.png" class="center-block" width="100%"><figcaption class="text-center">Fig 4.2 - One sample result</figcaption></figure> 
+                    
                     <h1 id="jenkins-server">Jenkins Server</h1>
+                    <p>For our continuous integration of our website we use Jenkins. Our pipe line works as follows:</p>
+                    <ol>
+                        <li>When we push our code to master, github webhooks send a request to our jenkins server</li>
+                        <li>Jenkins then pulls the latest code to a temporary folder.</li>
+                        <li>Jenkins then downloads any new libraries, makes any migrations and collects any new static files the new version of the website may use.</li>
+                        <li>Jenkins then runs selenium and unit tests on the latest version of the code</li>
+                        <li>If the tests pass, the new code replaces the current code and the apache server is restarted</li>
+                        <li>If the tests fail the new code is rejected and an error report is made. The old code is still running</li>      
+                    </ol>
+                    <p>Below are images from our Jenkins Admin page for the website</p>
+                    <figure><img src="img/jenkins0.png" class="center-block" width="100%"><figcaption class="text-center">Fig 5.1 - Admin page for the asksniff project</figcaption></figure> 
+                    <figure><img src="img/jenkins1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 5.2 - Admin page for a build of the project</figcaption></figure> 
+                    <figure><img src="img/jenkins2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 5.3 - Results for a ongoing build</figcaption></figure> 
+                    
+
+                </div>
+            </div>
+            <!-- modal for image enlarge -->
+            <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="" class="enlargeImageModalSource" style="width: 100%;">
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
