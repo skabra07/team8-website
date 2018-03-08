@@ -107,21 +107,108 @@
                 </div>
                 <div class="col-md-9">            
                     <h1 id="system-architecture">System Architecture</h1>
-                    
+                    <p>Brief description of the components that are in the system architecture diagram below:</p>
+                    <p><b>HAProxy</b> - The load balancer. It distributes the load coming into the website between the different instances of the django application</p>
+                    <p><b>Apache Web Server</b> - Used to serve static files and handle requests coming to the website from the load balancer.</p>
+                    <p><b>Django</b> - The backend of the website. Framework that sends the correct response for each requests made to the website.</p>
+                    <p><b>Azure Storage</b> -  Used to store the media files such as images. Does not increase the load for the apache server and also reduces the storage capacity required to host the website.</p>
+                    <p><b>Google Maps</b> - Used to get nearby hospitals from the current location of the user.</p>
+                    <p><b>Memcache</b> - Used to cache expensive database queries that are used often (same information used many times) such as information on a symptoms for a certain age group. This improves the websites efficiency and speed and has less stress on the backend and database.</p>
+                    <p><b>PostgresSQL</b> - The database server used to store the websites data/information</p> 
+                    <figure><img src="img/system_arc1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.1 - Single Instance</figcaption></figure>
+                    <figure><img src="img/system_arc2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.2 - Scaled Up to 3 Instances</figcaption></figure>
+                                       
                     <h1 id="class-diagram">Class Diagram</h1>
+                    <p>Class diagram of our website</p>
+                    <figure><img src="img/classdiagram.jpg" class="center-block" width="100%"><figcaption class="text-center">Fig 2.1 - Class Diagram</figcaption></figure>
                                             
                     <h1 id="continuous-integration">Continuous Integration</h1>
-                    
+                    <p>The diagram below shows our continious integration pipeline</p>
+                    <figure><img src="img/ci.png" class="center-block" width="100%"><figcaption class="text-center">Fig 3.1 - Continuous Integration Pipeline</figcaption></figure>
+                                        
                     <h1 id="docker-machine">Docker Machine</h1>
+                    <p>The website was deployed inside a docker enviroment which was on a linux server. Below is a diagram showing our docker enviroment</p>
+                    <figure><img src="img/docker.png" class="center-block" width="100%"><figcaption class="text-center">Fig 4.1 - Docker Enviroment</figcaption></figure>
 
                     <h1 id="design-pattern">Design Patterns</h1>
+                    <h3>Model - View - Template</h3>
+                    <p>Django follows the mtv (an architecture pattern) concept which is similar to the model-view-controller pattern. The difference is that the template in mtv is the same as the view in mvc and the view in mvt is the same as the controller in mvc. The model handles the data and any logic associated with the data such as validation, how to access the data and the relationships between the data. The model code can be found in model.py. Instead of a controller django has something called a template. The template contains the presentation of the website (like the view of the website). This includes how something should be shown on a website. There can be multiple templates for different presentations. The templates can be found under the templates folder. The view contains the logic behind the application (something like a controller). The view contains the logic that accesses the information from a database and populates the data onto an appropriate template. It is the bridge between the model and template. The code for the view can be found in the views.py file.</p>
+
+                    <h3>Query Object</h3>
+                    <p>Query objects are objects that represent a database query. To prevent the use of SQL queries, we use specialized finder methods that hide the SQL inside parameterized methods of criteria objects. The criteria objects will contain the operator for the SQL (=,>,<) the field to search from and the value to search from. The query objects is an interpreter for all the criteria objects. It links the criteria objects into one big query. Through the use of query objects we can create queries by referring to classes and fields rather than tables and columns.</p>
+                    
+                    <h3>Template View</h3>
+                    <p>This is an architecture pattern rather than a design pattern. In the template pattern,static html are defined and markers are used as placeholders for dynamic data. When the html page is requested, django replaces the markers with the appropriate data from the model and returned. The views send the data to replace the markers in the template as a dictionary where the key is the marker name and the value is the value that will replace the marker. The markers in the html pages look like this <code>{{marker name}}</code>. An example is: <code>Hello {{username}}</code>The views would send the data in the following format <code>{‘username’:’john’}</code>. The rendered html file will be <code>Hello john</code></p>
+
+                    <h3>Active Record</h3>
+                    <p>This is another type of architecture pattern. This pattern stores in memory objects data in relational database. In this pattern a database table is wrapped into a class. So an object of the class is a row of the table.So creating an object creates a new row in the table, updating the object updates that row and deleting the object deletes the row. The object will carry both the data of the row and also some behaviour. This approach makes the data easier to read, use and edit. If a column in a row has a relation with another table, the data of that column will be an object of the appropriate row(s) of the table it has a relationship with.</p>
+
+                    <h3>Decorator Pattern</h3>
+                    <p>The decorator pattern is different in django then in an object oriented program. We decorate a view function rather than an object. For some views a login is required. To ensure that the user is logged in before they can see a view, we can decorate the view the user wishes to see with a login_required decorator. This acts as a wrapper around the view function and only executes the view function if a user is logged in. We can remove the decorator from the view if the view does not require a logged in user. We did similar things with disclaimer_read which checks if a user has read the disclaimer and agreed to the disclaimer before they can access the website. The code for the decorators can be found in decorators.py. To use a decorator simply add <code>@decorator_name</code> at the start of the function you want to wrap the decorator around.</p>
 
                     <h1 id="data-storage">Data Storage</h1>
+                    <p>Below is a data base schema diagram of our postgres database</p>
+                    <figure><img src="img/db.png" class="center-block" width="100%"><figcaption class="text-center">Fig 5.1 - Database Schemea</figcaption></figure>
+
 
                     <h1 id="analytics">Analytics</h1>
+                    <p>Our client wanted some way to get analytics about the website such as how many users are visiting the website to how much time they spend on the website. For this the team decided to use Google Analytics. Google Analytics is easy to set up and the report panel is very informative. It is a very popular and respected tool with very accurate information .The information that is generated from Google Analytics include:</p>
+                    <ul>
+                        <li>How many users visited the website</li>
+                        <li>How long each user interacted with the website</li>
+                        <li>Number of current active user (how many people are currently using the website)</li>
+                        <li>The times of when users visit the website</li>
+                        <li>Where the users are from</li>
+                        <li>What devices users are using to access the website</li>
+                        <li>Frequency of the number of visitors for each web page of the website.</li>
+                    </ul>
+                    <p>Below are few images from our Google Analytics admin pages of the website</p>
+                    <div id="analytics-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                          <li data-target="#analytics-carousel" data-slide-to="0" class="active"></li>
+                          <li data-target="#analytics-carousel" data-slide-to="1"></li>
+                          <li data-target="#analytics-carousel" data-slide-to="2"></li>
+                        </ol>
+                    
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item active">
+                            <img src="img/google1.png" style="width:100%;">
+                          </div>
+                    
+                          <div class="item">
+                            <img src="img/google2.png" style="width:100%;">
+                          </div>
+                        
+                          <div class="item">
+                            <img src="img/google3.png" style="width:100%;">
+                          </div>
+                        </div>
+                    
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#analytics-carousel" data-slide="prev" onclick="$('#analytics-carousel').carousel('prev')">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#analytics-carousel" data-slide="next" onclick="$('#analytics-carousel').carousel('next')">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                      </div>
 
                     <h1 id="implementation-of-key-functionalities">Implementation of Key Functionalities</h1>
                 </div>
+                 <!-- modal for image enlarge -->
+                <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="" class="enlargeImageModalSource" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -147,10 +234,13 @@
     </div>
 
     <!-- jQuery -->
-    <script src="js/all.js"></script>
+    
 
     <!-- Bootstrap Core JavaScript -->
+    <script src="js/all.js"></script>
+    <script src="js/custom.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 </body>
 </html>
