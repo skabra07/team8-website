@@ -9,6 +9,9 @@ body {
   background: #11d3ac;
   color: black;
 }
+img {
+  cursor: zoom-in;
+}
 p {
   font-size: 20px;
 }
