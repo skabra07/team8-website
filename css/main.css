@@ -13,6 +13,7 @@ html {
 body {
   margin: 0; }
 
+
 article,
 aside,
 details,
@@ -1127,7 +1128,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eeeeee; }
+  border-top: 1px solid black; }
 
 .sr-only {
   position: absolute;
@@ -5993,7 +5994,7 @@ body {
     font-size: 2em;
     margin: 0 0 1em;
     padding: 1.5em 0 0.25em;
-    border-bottom: 1px solid #ddd; }
+    border-bottom: 1px solid black; }
   .site-content h2 {
     font-size: 1.5em;
     font-weight: bold;
@@ -6039,7 +6040,7 @@ body {
           left: 0;
           margin-top: -0.5em;
           border: .2em solid white;
-          background-color: #11866f;
+          background-color: #11d3ac;
           transition: border-color 100ms linear; }
         .site-content #table-of-contents .headings li.active {
           border-color: #2C3E50; }

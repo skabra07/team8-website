@@ -101,14 +101,36 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-md-9">            
+                <div class="col-md-9">    
+                    <h2>This section contains a summary of the research we conducted before creating the website.</h2>        
                     <h1 id="related-projects">Related Projects</h1>
+                    <p>Before we started to research of what technoligies to use, we first researched any exisiting website that has similar features to our website. We found a website called “<a href="https://spottingthesickchild.com/">spottingthesickchild.com</a>” which provides information about acute illnesses in young children. However, the website is only available to medical professionals, and the information is also only appropriate for those professionals.</p>
                     
                     <h1 id="related-techologies">Related Technologies</h1>
+                    <h3><u>Programming Language - Python vs Ruby</u></h3>
+                    <p>Python is a general purpose language with a very big community that has created many open source libraries. Python is easy to learn but is a very powerful language. It can can be found on most linux servers and does not need any extra external libraries to run. Ruby is another general purpose language which came out after python.Ruby has a powerful web framework (Ruby on Rails). However it is harder to learn than Python and is less stable than Python. We decided to use Python as we all  have used Python before and were comfortable in using it</p>
+                    <h3><u>Web Framework - Django vs Flask</u></h3>
+                    <p>Once the team had agreed to write the website using python, the two most famous framework to write websites using python were django and flask. Django and Flask are both open source frameworks, however django has been in the market from 2005 and flask has been in the market from 2010. Flask is simpler to use and offers more control to the developer. However django has a lot more out of the box features such as an admin panel, an authentication system, database interface and much more. This was ideal for our project as it meant we did not have to write a lot of code from scratch. Since django has been around for a while it is more stable and can take heavy loads/stress.</p>
+                    <h3><u>Web Server - Apache vs Nginx</u></h3>      
+                    <p>Django has an inbuilt web server to handle the requests and static files. However the django web server is just for development purposes. For production we had to select a more powerful web server. We had a choice between apache and nginx. Nginx is a light web server which servers static files quickly and is easy to set up. However nginx has to run on a different server which can be an extra cost for our client. We decided to use apache as it can handle large requests. Apache is also easy to setup and since our static files were saved on azure storages we did not have to worry about the speed of serving static files.</p>
+                    <h3><u>Database - Postgres vs MySQL</u></h3>       
+                    <p>Django's default database is sqlite3. Sqlite3 is a very simple database and not a good option for our project. We decided to use a database that would be on a seperate server to ensure better security of the information and to ensure the data is not affected when code changes (in production). We had a choice between postgres and mysql (since we wanted a relational database). Both the options are very simple. The only differences is that mySQL is controlled by Oracle but PostgreSQL is under open source license (although controlled by Oracle mySQL is also open source). Postgres has a rigorous constraint checking which will ensure the integrity of our  data is not lost. Postgres is also easier to setup with django as compared to mySQL.</p>
+                    <h3><u>Deployment</u></h3>
+                    <p>For ease of deployment and for better integration of all systems, we decided to use docker.  Docker will make it easier to scale up and down instantly without the need of adding more servers and configuring those servers.</p>
+                    <h3><u>Website Efficiency</u></h3>
+                    <p>To ensure less load on our website and database to make it more efficient, we use Memcache to cache results from expensive database queries. Since we are using docker, docker can scale up the website to multiple instances. To handle which request is sent to which instance of the database, we use HAProxy to load balance our website.</p>
+                    <h3><u>Continious Integration</u></h3>
+                    <p>We used Jenkins for continuous integration in our website. Jenkins is open source and comes with a lot of libraries.We use jenkins as it's free to use, easy to setup and it has many useful plugins that make the work easier.</p>
                                             
                     <h1 id="summary-of-final">Summary of Final Descision</h1>
+                    <p>Once we had researched on the technology to use, we referered to out MoSCoW requirements to decide which options to pick for the infrastructure of the website. We also took into consideration the cost of deployment and management for our client. The final summary of the project is as follows:</p>
+                    <b><i><blockquote>The website will made using the Django framework. The backend of the code will be written in Python while the front end will be made using HTML/CSS/JavaScript/AJAX. The website will be served using an Apache web server. The data will be stored on a Postgresql database. The results from expensive database query searches were cached in a Memcache server. This ensured less load on the database. We will use HAProxy server for load balancing when the website is scaled up. For continuous integration we will use Jenkins. All of these will be put inside multiple Docker containers and controlled by Docker Compose.</blockquote></i></b>
                     
                     <h1 id="references">References</h1>
+                    <p>[1] T. (worthwhile.com), "20 Advantages of Doing Web Development with Python and Django", Worthwhile.com, 2018. [Online]. Available: https://worthwhile.com/blog/2016/07/19/django-python-advantages/. [Accessed: 08- Mar- 2018].</p>
+                    <p>[2] "Web Development 101: Top Web Development Languages to Learn in 2018 - Upwork Blog", Upwork Blog, 2018. [Online]. Available: https://www.upwork.com/blog/2017/11/top-web-development-languages-2018/. [Accessed: 08- Mar- 2018].</p>
+                    <p>[3] "Django Server Comparison: The Development Server, Mod_WSGI, uWSGI, and Gunicorn | DigitalOcean", Digitalocean.com, 2018. [Online]. Available: https://www.digitalocean.com/community/tutorials/django-server-comparison-the-development-server-mod_wsgi-uwsgi-and-gunicorn. [Accessed: 08- Mar- 2018].</p>
+                    <p>[4] "Why does the Django community generally use PostgreSQL over MySQL?", Quora.com, 2018. [Online]. Available: https://www.quora.com/Why-does-the-Django-community-generally-use-PostgreSQL-over-MySQL. [Accessed: 08- Mar- 2018].</p>
                 </div>
             </div>
         </div>
