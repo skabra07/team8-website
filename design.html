@@ -199,6 +199,50 @@
                     </div>
 
                     <h1 id="implementation-of-key-functionalities">Implementation of Key Functionalities</h1>
+                    <h2>Search</h2>
+                    <p>The search query is received through an ajax call from the search page. The query is first checked to make sure it's not too long (if it is long it is broken down). It is also checked to ensure no malicious code is being sent (like a script). Once it is cleaned, the query string is run through the cache to check if someone has already searched this query. If it matches a query in the cache the result from the cache is obtained, converted to json and returned to the ajax call. If it doesn't exist then the query is searched through the database. The results received are then converted to json and sent back.Here is the query code to get relevant subheadings:</p>
+                    <div style="background:#f9f2f4">
+                        <code>
+                            sub_headings = SubHeading.objects.filter((Q(headingId__text__icontains=query) | Q(headingId__categoryName__categoryName__icontains=query) |Q(text__icontains=query)) & Q(ageGroup__age_group=age_group)).distinct()<br>
+                            data = []<br>
+                            for sub_heading in sub_headings:<br>
+                            &emsp;&emsp;&emsp;&emsp;title = str(sub_heading.title)<br>
+                            &emsp;&emsp;&emsp;&emsp;text = str(sub_heading.text)<br>
+                            &emsp;&emsp;&emsp;&emsp;heading_id = str(sub_heading.headingId.headingId)<br>
+                            &emsp;&emsp;&emsp;&emsp;sub_heading_id = str(sub_heading.subHeadingId)<br>
+                            &emsp;&emsp;&emsp;&emsp;data_dictonary = {'title':title, 'text':text, 'heading_id':heading_id, 'sub_heading_id':sub_heading_id}<br>
+                            &emsp;&emsp;&emsp;&emsp;data.append(data_dictonary)<br>
+                            return JsonResponse(data)
+                        </code>
+                    </div>
+                    <h2>Delete Child Profile</h2>
+                    <p>Deletion and activating of a child are done through ajax post calls only with a secret ID. This ensures that the activation and deletion can only me made from the appropriate page. When a request is made to delete a child, the request id must match the id of the user whose child is being deleted. If it doesn't match a json response of failure is sent back. If the ID matches, the child is checked to see if it was a currently used child. If so the child is deleted and the next child in the users account is activated. If the user does not have any more children (deleted their last child) they are redirected to the add child page</p>
+                    <div style="background:#f9f2f4">
+                        <code>
+                            if child.username != request.user:<br>
+                            &emsp;&emsp;&emsp;&emsp;return JsonResponse({'status':0})<br>
+                            if child.activate:<br>
+                            &emsp;&emsp;&emsp;&emsp;child.delete()<br>
+                            &emsp;&emsp;&emsp;&emsp;new_child = Child.objects.filter(username=request.user).first()<br>
+                            &emsp;&emsp;&emsp;&emsp;new_child.activate = True<br>
+                            &emsp;&emsp;&emsp;&emsp;new_child.save()<br>
+                            else:<br>
+                            &emsp;&emsp;&emsp;&emsp;child.delete()<br>
+                            return JsonResponse({'status':1})                        
+                        </code>
+                    </div>
+                    <h2>Displaying data according to User (dynamic data)</h2>
+                    <p>Each symptom information has an age group linked to it. For users that have skipped login, they need to select and age group. From that point onwards the backend just selects the symptom informations linked to the age group selected. For a logged in user, we first check if they have a child in their account. If not they should add a child. If they have a current active child, we get that child's age and calculate their age in month. We then get the appropriate age group depending on their age in months and save that so we don't need to calculate again. The calculation:</p>
+                    <div style="background:#f9f2f4">
+                        <code>
+                            age_group_of_child = agegroup(((date.today().year - child_age.year)*12) + (date.today().month - child_age.month))
+                        </code>
+                    </div>
+                    <h2>Download Information</h2>
+                    <p>When the user click on the print information button, a js script get all the information on that page (the title, content and images), creates a html document from the information with a few custom styling and then sends it to the browser's print option. The user can then print it or save it as a pdf.</p>
+                    <h2>Upload image for a diary log</h2>
+                    <p>When a user attaches a image to a diary log, the image is transferred to the azure storage while they are still writing the context of the log. This ensures that when they click on add, they don't have to wait long for the image to be uploaded to the server. However the image is stored in a temporary folder. If a user clicks on cancel the image is deleted from the storage. If a user clicks on Add log then the image is moved from the temporary storage to their storage folder location.</p>
+                    
                 </div>
                  <!-- modal for image enlarge -->
                 <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
@@ -242,7 +286,6 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/all.js"></script>
-    <script src="js/custom.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
