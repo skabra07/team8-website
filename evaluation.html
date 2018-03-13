@@ -101,13 +101,86 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-md-9">            
+                <div class="col-md-9">
+                    <h1>Introduction</h1>
+                    <p>This section aims to provide an overall evaluation of our project. It looks at a summary of achievements and the contributions that each team member made. Then, it discusses various aspects of the website with a "What Went Well" and "What Could Have Been Done Better" format. Finally, potential future works for our website is also included.</p>
+
                     <h1 id="summary-of-acheivements">Summary of Achievements</h1>
-                    
+                    <h3><u>Achievement Table</u></h3>
+                    <figure><img src="img/evaluation1.png" class="center-block"><figcaption class="text-center">Fig 1.1 - MoSCoW table with state of completion and contributors</figcaption></figure>
+                    <h3><u>List of Known Bugs Table</u></h3>
+                    <figure><img src="img/evaluation2.png" class="center-block"><figcaption class="text-center">Fig 1.2 - List of known bugs with priority</figcaption></figure>
+                    <h3><u>Individual Contribution Table</u></h3>
+                    <figure><img src="img/evaluation3.png" class="center-block"><figcaption class="text-center">Fig 1.3 - Individual Contribution Table</figcaption></figure>
+
                     <h1 id="critical-evaluation">Critical Evaluation</h1>
+                    <h3><u>User Interface / User Experience</u></h3>
+                    <p>The user interface and user experience of our project is of utmost importance. Our users are mostly parents dealing with children, hence the user experience has to be as natural as possible, to avoid any confusion during usage. Therefore, the team decided to use Materialize as our CSS framework. Materialize CSS allows us to implement material design for our project. This is essential as material design is used widely by Google, and since Google apps and services are immensely popular, users of our website will not experience any foreignity. We have also reiterated our design over and over again, whilst constantly gathering feedback from the parent panel. This ensures that our final website is as user friendly as possible, and serves its purpose without any hassle in terms of user experience and interface.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>We used Materialize CSS which provides a natural user experience for our users.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>We could have done more iterations of the website design and gather more user feedback.</p>
+
+                    <h3><u>Functionality</u></h3>
+                    <p>We managed to complete 95% of the functionalities requested by our client. Hence, the website is fully functional and ready for production use. We’ve also implemented Selenium testing, which tests for our website’s functionalities. All of our tests passed, hence it is evident that our website is working as intended and is stable. Some of the key functionalities of our website to highlight include integration with Google Maps API to check for nearby healthcare services, a diary logging function and a account system for managing children profiles.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>We managed to complete 95% of the functionalities requested by our client.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>We could have asked our client for any further enhancements of the functionalities and then implement them.</p>
+
+                    <h3><u>Stability</u></h3>
+                    <p>After having done stress testing using Locustio and system testing, results show that our website is indeed very stable. Under the load of 100 users, there were no failures or slow performance detected.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>The website is able to carry out all functionalities under various conditions without crashing.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>We could have done more rigorous testing, testing the limits of our website to the maximum.</p>
+
+                    <h3><u>Efficiency</u></h3>
+                    <p>With scalability included through the use of Docker, and with the caching of expensive database calls, the website is fairly efficient. It can process requests quickly and without any errors. This is proven by the results from our performance testing. Each database query takes only approximately ~20ms. Combined with our caching system, the number of database calls have to be made is reduced, hence there isn't any noticeable delays when using the website.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>The website is proven to be efficient. For a standard user, there are no noticeable delays during usage.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>For a website of this scale, there is not much that can be done to increase the efficiency, besides rethinking the database structure to possibly minimise the number of database calls.</p>
+
+                    <h3><u>Compatibility</u></h3>
+                    <p>Since our website is meant to be used by the general public consumers, we have to ensure that the website is responsive. This means that it should be correctly displayed for devices of all screen sizes. We took effort to test the responsiveness of our website manually and automated. We made sure to always consider the responsiveness of elements throughout the development. Hence, our final website is proven to be fully responsive across various devices with different screen sizes.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>We have taken measures to ensure that the website is fully responsive. With compatibility testing, we have identified a list of compatible browsers and their respective versions.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>Following the results of compatibility testing, we could have tried to push the compatibility limit to cater for even earlier browser versions. This will then reduce the chances of incompatibility due to an user using an old browser version.</p>
+
+                    <h3><u>Maintainability</u></h3>
+                    <h5><b>What we did well</b></h5>
+                    <p>We have created a simple admin panel to allow administrators add or edit a symptom information. The admin panel also features an editor that allows hyperlinks to be created. No code knowledge is necessary for administrators to make edit changes.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>We could have enhanced the admin panel to include more features and increase the flexibility of changes that can be made.</p>
+
+                    <h3><u>Project Management</u></h3>
+                    <p>We decided to use Scrum, an agile software development method. Having a management method in place ensured tasks were completed on time, problems were identified as early as possible and the team and our client was constantly updated about our progress. The team meets every week on Monday and decides on the sprint for the next two weeks. At the end of each sprint the team would meet to review the progress. Any problems from the sprint was added to the next sprint. Any completed tasks (usually a requirement from the MoSCoW table) was ticked of. We would then update our client on the progress before starting the next sprint. The feedback from our client was used in the new sprint. This ensured the requirements were completed in increments rather than all at once. It made testing and reviewing specific requirements easy and the feedbacks were specific to each requirements.</p>
+                    <p>We decided to use the Test Driven Development approach as well. Since for each sprint feature to be completed we also need to test it, it made it easier to first write tests and then write the functionality.This ensured that if we refactored the code for a functionality, the tests would catch it.</p>
+                    <p>To help improve quality and to reduce bugs in the program, we even used the Pair Programming principle. Using this method, one person wrote the code while the other person reviewed each line of code that was being written. This ensured that we did not have to read through a lot of code at the end of each sprint and errors were found as they were written.</p>
+                    <h5><b>What we did well</b></h5>
+                    <p>Using the project management styles stated above enabled the team to complete the project in good time, write good code and the ensure the final website was stable and ready for production.</p>
+                    <h5><b>What could have been done better</b></h5>
+                    <p>To our team's knowledge, we did a very good job in terms of project management and code collaboration. Hence, there is nothing major that is worth mentioning about what we can improve on.</p>
                                             
                     <h1 id="future-work">Future Work</h1>
+                    <p>If given an additional three months, there isn’t much future works to our project considering that we have completed all the requirements as requested from our client. If we were to be critical about this matter, possible future works include reiterating the website design until it is of professional standard, and enhance the web infrastructure to allow for maximum scalability. We can also work on scaling the database even further, as well as creating an API that can be used by third party applications. Other than that, future works will include adding more symptoms, and to cover information that spans beyond the UK.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for image enlarge -->
+    <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <img src="" class="enlargeImageModalSource" style="width: 100%;">
+            </div>
             </div>
         </div>
     </div>
