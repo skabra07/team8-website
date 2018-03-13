@@ -111,6 +111,7 @@
                 </div>
                 <div class="col-md-9">            
                     <h1 id="system-architecture">System Architecture</h1>
+                    <figure><img src="img/system_arc1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.1 - Single Instance</figcaption></figure>
                     <p>Brief description of the components that are in the system architecture diagram below:</p>
                     <p><b>HAProxy</b> - The load balancer. It distributes the load coming into the website between the different instances of the django application</p>
                     <p><b>Apache Web Server</b> - Used to serve static files and handle requests coming to the website from the load balancer.</p>
@@ -118,8 +119,9 @@
                     <p><b>Azure Storage</b> -  Used to store the media files such as images. Does not increase the load for the apache server and also reduces the storage capacity required to host the website.</p>
                     <p><b>Google Maps</b> - Used to get nearby hospitals from the current location of the user.</p>
                     <p><b>Memcache</b> - Used to cache expensive database queries that are used often (same information used many times) such as information on a symptoms for a certain age group. This improves the websites efficiency and speed and has less stress on the backend and database.</p>
-                    <p><b>PostgresSQL</b> - The database server used to store the websites data/information</p> 
-                    <figure><img src="img/system_arc1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.1 - Single Instance</figcaption></figure>
+                    <p><b>PostgresSQL</b> - The database server used to store the websites data/information</p>
+                    <br>
+                    <p>The follow diagram shows what the system architecture diagram looks like when scaled up to 3 instances:-</p>
                     <figure><img src="img/system_arc2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.2 - Scaled Up to 3 Instances</figcaption></figure>
                                        
                     <h1 id="class-diagram">Class Diagram</h1>
