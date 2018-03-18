@@ -119,11 +119,11 @@
                     <p>Brief description of the components that are in the system architecture diagram below:</p>
                     <p><b>HAProxy</b> - The load balancer. It distributes the load coming into the website between the different instances of the django application</p>
                     <p><b>Apache Web Server</b> - Used to serve static files and handle requests coming to the website from the load balancer.</p>
-                    <p><b>Django</b> - The backend of the website. Framework that sends the correct response for each requests made to the website.</p>
+                    <p><b>Django</b> - The backend of the website. Framework that sends the correct response for each request made to the website.</p>
                     <p><b>Azure Storage</b> -  Used to store the media files such as images. Does not increase the load for the apache server and also reduces the storage capacity required to host the website.</p>
                     <p><b>Google Maps</b> - Used to get nearby hospitals from the current location of the user.</p>
-                    <p><b>Memcache</b> - Used to cache expensive database queries that are used often (same information used many times) such as information on a symptoms for a certain age group. This improves the websites efficiency and speed and has less stress on the backend and database.</p>
-                    <p><b>PostgresSQL</b> - The database server used to store the websites data/information</p>
+                    <p><b>Memcache</b> - Used to cache expensive database queries that are used often (same information used many times) such as information on a symptom for a certain age group. This improves the website's efficiency and speed and has less stress on the backend and database.</p>
+                    <p><b>PostgresSQL</b> - The database server used to store the website's data/information</p>
                     <br>
                     <p>The follow diagram shows what the system architecture diagram looks like when scaled up to 3 instances:-</p>
                     <figure><img src="img/system_arc2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.2 - Scaled Up to 3 Instances</figcaption></figure>
@@ -133,7 +133,7 @@
                     <figure><img src="img/classdiagram.jpg" class="center-block" width="100%"><figcaption class="text-center">Fig 2.1 - Class Diagram</figcaption></figure>
                                             
                     <h1 id="continuous-integration">Continuous Integration</h1>
-                    <p>The diagram below shows our continious integration pipeline</p>
+                    <p>The diagram below shows our continuous intergration pipeline</p>
                     <figure><img src="img/ci.png" class="center-block" width="100%"><figcaption class="text-center">Fig 3.1 - Continuous Integration Pipeline</figcaption></figure>
                                         
                     <h1 id="docker-machine">Docker Machine</h1>
@@ -148,7 +148,7 @@
                     <p>Query objects are objects that represent a database SQL query. To prevent the use of SQL queries, we use specialized finder methods that hide the SQL inside parameterized methods of criteria objects. The criteria objects will contain the operator for the SQL (=,>,<), the field to search from and the value to search from. This ensures that developers dont need to know SQL as a language to use the database. The query objects is an interpreter for all the criteria objects. It links the criteria objects into one big query. Through the use of query objects we can create queries by referring to classes and fields rather than tables and columns.</p>
                     
                     <h3>Template Method</h3>
-                    <p>The template method pattern is a behavioral design pattern that defines the "program skeleton of an algorithm in an operation deferring some steps to client subclasses". It allows subclasses to redefine steps of the algorithm without changing the algorithm structure and without having a completely different copy of the similar algorithm.<br> For our website, the skeleton code is our static html and markers used as placeholders is our client subclass. When the html page is requested, django replaces the markers with the appropriate data from the model and returns the generated HTML to the user. The views send the data to replace the markers in the template as a dictionary where the key is the marker name and the value is the value that will replace the marker. The markers in the html pages look like this <code>{{marker name}}</code>. An example is: <code>Hello {{username}}</code>The views would send the data in the following format <code>{‘username’:’john’}</code>. The rendered html file will be <code>Hello john</code></p>
+                    <p>The template method pattern is a behavioural design pattern that defines the "program skeleton of an algorithm in an operation deferring some steps to client subclasses". It allows subclasses to redefine steps of the algorithm without changing the algorithm structure and without having a completely different copy of the similar algorithm.<br> For our website, the skeleton code is our static html and markers used as placeholders is our client subclass. When the html page is requested, django replaces the markers with the appropriate data from the model and returns the generated HTML to the user. The views send the data to replace the markers in the template as a dictionary where the key is the marker name and the value is the value that will replace the marker. The markers in the html pages look like this <code>{{marker name}}</code>. An example is: <code>Hello {{username}}</code>The views would send the data in the following format <code>{‘username’:’john’}</code>. The rendered html file will be <code>Hello john</code></p>
 
                     <h3>Active Record</h3>
                     <p>The active record pattern is an architectural pattern found in software that stores in-memory object data in relational databases.In this pattern a database table is wrapped into a class and an object of the class is a row of the table. So creating an object creates a new row in the table, updating the object updates that row and deleting the object deletes the row. The object will carry both the data of the row and also some behaviour. This approach makes the data easier to read, use and edit. If a column in a row has a relation with another table, the data of that column will be an object of the appropriate row(s) of the table it has a relationship with. In our website we use this pattern to update, create and add data into our table</p>
@@ -157,22 +157,22 @@
                     <p>the decorator pattern is a design pattern that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class. In our website we decorate a view function with decorators. For some views a login is required. To ensure that the user is logged in before they can see a view, we can decorate the view the user wishes to see with a login_required decorator. This acts as a wrapper around the view function and only executes the view function if a user is logged in. We can remove the decorator from the view if the view does not require a logged in user. We did similar things with disclaimer_read which checks if a user has read the disclaimer and agreed to the disclaimer before they can access the website. The code for the decorators can be found in decorators.py. To use a decorator simply add <code>@decorator_name</code> ,which is a syntatic sugar for the decorator, at the start of the function you want to wrap the decorator around.</p>
 
                     <h1 id="data-storage">Data Storage</h1>
-                    <p>Below is a data base schema diagram of our postgres database</p>
+                    <p>Below is a database schema diagram of our postgres database</p>
                     <figure><img src="img/db.png" class="center-block" width="100%"><figcaption class="text-center">Fig 5.1 - Database Schemea</figcaption></figure>
 
 
                     <h1 id="analytics">Analytics</h1>
-                    <p>Our client wanted some way to get analytics about the website such as how many users are visiting the website to how much time they spend on the website. For this the team decided to use Google Analytics. Google Analytics is easy to set up and the report panel is very informative. It is a very popular and respected tool with very accurate information .The information that is generated from Google Analytics include:</p>
+                    <p>Our client wanted some way to get analytics about the website such as how many users are visiting the website to how much time they spend on the website. For this the team decided to use Google Analytics. Google Analytics is easy to set up and the report panel is very informative. It is a very popular and respected tool which records information accurately. The information that is generated from Google Analytics include:</p>
                     <ul>
                         <li>How many users visited the website</li>
                         <li>How long each user interacted with the website</li>
-                        <li>Number of current active user (how many people are currently using the website)</li>
+                        <li>Number of current active users (how many people are currently using the website)</li>
                         <li>The times of when users visit the website</li>
                         <li>Where the users are from</li>
                         <li>What devices users are using to access the website</li>
                         <li>Frequency of the number of visitors for each web page of the website.</li>
                     </ul>
-                    <p>Below are few images from our Google Analytics admin pages of the website</p>
+                    <p>Below are a few images from our Google Analytics admin pages of the website</p>
                     <div id="analytics-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                           <li data-target="#analytics-carousel" data-slide-to="0" class="active"></li>
@@ -206,7 +206,7 @@
 
                     <h1 id="implementation-of-key-functionalities">Implementation of Key Functionalities</h1>
                     <h2>Search</h2>
-                    <p>The search query is received through an ajax call from the search page. The query is first checked to make sure it's not too long (if it is long it is broken down). It is also checked to ensure no malicious code is being sent (like a script). Once it is cleaned, the query string is run through the cache to check if someone has already searched this query. If it matches a query in the cache the result from the cache is obtained, converted to json and returned to the ajax call. If it doesn't exist then the query is searched through the database. The results received are then converted to json and sent back.Here is the query code to get relevant subheadings:</p>
+                    <p>The search query is received through an ajax call from the search page. The query is first checked to make sure it's not too long (if it is long it is broken down). It is also checked to ensure no malicious code is being sent (like a script). Once it is cleaned, the query string is run through the cache to check if someone has already searched this query. If it matches a query in the cache the result from the cache is obtained, converted to json and returned to the ajax call. If it doesn't exist in the cache, then the query is searched through the database. The results received are then converted to json and sent back. Here is the query code to get relevant subheadings:</p>
                     <div style="background:#f9f2f4">
                         <code>
                             sub_headings = SubHeading.objects.filter((Q(headingId__text__icontains=query) | Q(headingId__categoryName__categoryName__icontains=query) |Q(text__icontains=query)) & Q(ageGroup__age_group=age_group)).distinct()<br>
@@ -222,7 +222,7 @@
                         </code>
                     </div>
                     <h2>Delete Child Profile</h2>
-                    <p>Deletion and activating of a child are done through ajax post calls only with a secret ID. This ensures that the activation and deletion can only me made from the appropriate page. When a request is made to delete a child, the request id must match the id of the user whose child is being deleted. If it doesn't match a json response of failure is sent back. If the ID matches, the child is checked to see if it was a currently used child. If so the child is deleted and the next child in the users account is activated. If the user does not have any more children (deleted their last child) they are redirected to the add child page</p>
+                    <p>Deletion and activation of a child are done through ajax post calls only with a secret ID. This ensures that the activation and deletion can only be made from the appropriate page. When a request is made to delete a child, the request id must match the id of the user whose child is being deleted. If it doesn't match a json response, a failure is sent back. If the ID matches, the child is checked to see if it was a currently used child. If so the child is deleted and the next child in the user's account is activated. If the user does not have any more children (deleted their last child) they are redirected to the add child page</p>
                     <div style="background:#f9f2f4">
                         <code>
                             if child.username != request.user:<br>
@@ -238,16 +238,16 @@
                         </code>
                     </div>
                     <h2>Displaying data according to User (dynamic data)</h2>
-                    <p>Each symptom information has an age group linked to it. For users that have skipped login, they need to select and age group. From that point onwards the backend just selects the symptom informations linked to the age group selected. For a logged in user, we first check if they have a child in their account. If not they should add a child. If they have a current active child, we get that child's age and calculate their age in month. We then get the appropriate age group depending on their age in months and save that so we don't need to calculate again. The calculation:</p>
+                    <p>Each symptom information has an age group linked to it. For users that have skipped login, they need to select an age group. From that point onwards, the backend just selects the symptom information linked to the age group selected. For a logged in user, we first check if they have a child in their account. If not they should add a child. If they have a current active child, we get that child's age and calculate their age in months. We then get the appropriate age group depending on their age in months and save that so we don't need to calculate again. The calculation:</p>
                     <div style="background:#f9f2f4">
                         <code>
                             age_group_of_child = agegroup(((date.today().year - child_age.year)*12) + (date.today().month - child_age.month))
                         </code>
                     </div>
                     <h2>Download Information</h2>
-                    <p>When the user click on the print information button, a js script get all the information on that page (the title, content and images), creates a html document from the information with a few custom styling and then sends it to the browser's print option. The user can then print it or save it as a pdf.</p>
+                    <p>When the user clicks on the print information button, a js script gets all the information on that page (the title, content and images), creates a html document from the information with a few custom stylings and then sends it to the browser's print option. The user can then print it or save it as a pdf.</p>
                     <h2>Upload image for a diary log</h2>
-                    <p>When a user attaches a image to a diary log, the image is transferred to the azure storage while they are still writing the context of the log. This ensures that when they click on add, they don't have to wait long for the image to be uploaded to the server. However the image is stored in a temporary folder. If a user clicks on cancel the image is deleted from the storage. If a user clicks on Add log then the image is moved from the temporary storage to their storage folder location.</p>
+                    <p>When a user attaches an image to a diary log, the image is transferred to the azure storage while they are still writing the context of the log. This ensures that when they click on add, they don't have to wait long for the image to be uploaded to the server. However the image is stored in a temporary folder. If a user clicks on cancel, the image is deleted from the storage. If a user clicks on Add log then the image is moved from the temporary storage to their storage folder location.</p>
                     
                     <h1 id="references">References</h1>
                     <p>[1]"Model–view–controller", En.wikipedia.org, 2018. [Online]. Available: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller. [Accessed: 08- Mar- 2018].</p>
