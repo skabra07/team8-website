@@ -120,10 +120,22 @@
                     <p>This section looks at the various types of testing that we have done for our project. Testing is a huge and integral part of our project. It allows us to show evidence that our website is functional, stable, efficient and fully compatible across various devices. It also allowed us to spot bugs and errors and identify better ways of implementing certain functionalities.</p>
 
                     <h1 id="system-testing">System Testing</h1>
-                    <p>For our system testing we checked if all the external components that the website uses were up and ready to be used before the website could start. This includes checking if we could connect to the database using the correct credentials, if the cache server was also running and check if none of the python files had any syntax errors on them. If any of the system tests failed, then the django server would not start and the website would be offline. If a system check fails, django will try to run the system checks again after every minute (if the problem is a connection error to the database or cache).</p>
-                    
+                    <h3>Description</h3>
+                    <p>For our system testing we checked if all the external components that the website uses were up and ready to be used before the website could start.</p>
+                    <h3>Why we did it</h3>
+                    <p>Having system checks would ensure that all external components that the website requires to fucntion are up and running before we start the website. This ensures the website does not crash because it cannot access or use an external component</p>
+                    <h3>How we did it</h3>
+                    <p>We would check if we could connect to the database using the correct credentials, if the cache server was also running and check if none of the python files had any syntax errors on them. If any of the system tests failed, then the django server would not start and the website would be offline. If a system check fails, django will try to run the system checks again after every minute (if the problem is a connection error to the database or cache).</p>
+                                        
                     <h1 id="stress-testing">Stress Testing</h1>
-                    <p>To test the load on our website we decided to use Locustio. It is an open source python framework for stress performance. We tested 100 users per second on the website scaled up to 3 instances of the website and also on just one instance of the website. The load tests helped us get an idea how much load the website could take before the website started to fail or take too long to reply. Here is the result for only one instance of the website running:</p>
+                    <h3>Description</h3>
+                    <p>To test the load on our website we decided to use Locustio. It is an open source python framework for stress performance. We tested 100 users per second on the website scaled up to 3 instances of the website and also on just one instance of the website.</p>
+                    <h3>Why we did it</h3>
+                    <p>The load tests helped us get an idea how much load the website could take before the website started to fail or take too long to reply.</p>
+                    <h3>How we did it</h3>
+                    <p>We wrote scripts which Locustio ran. These scripts include which webpages we would send requests to and how many requests persecond with the number of users. We also provided any login credentials required to access those webpages.</p>
+                    <h3>Results</h3>
+                    <p>Here is the result for only one instance of the website running:</p>
                     <figure><img src="img/stress_one_table.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.1 - Stress results for one instance</figcaption></figure> 
                     <figure><img src="img/stress_one_graph.png" class="center-block" width="100%"><figcaption class="text-center">Fig 1.2 - Average Response Time for one instance</figcaption></figure>                      
                     <p>Results for the website with 3 instances:</p>
@@ -132,17 +144,35 @@
                     <p>From the graphs we saw the reduction in the average response time when we scaled up the website instances. This helped us know that when there is a large traffic on the website, we could easily scale up to help manage the high traffic. We can also see there is a large difference between the max and min of /symptoms/information/1. This is because the max is when the link is called the first time. The page is then cached and so when it is called again the time taken reduces. </p>
                     
                     <h1 id="performance-testing">Performance Testing</h1>
-                    <p>After testing the max load on our website before it became very slow, we wanted to test how the website performed in terms of how many database calls are made and how fast the website is (for a user). We used Django Silk which is a live profiling and inspection tool for the django framework. This helped us see how long each page took to respond, all the information about a request (the SQL calls and the request headers with response). The stress testing tested how much volume the website could take but the performance test checks how fast the system is.</p>
+                    <h3>Description</h3>
+                    <p>After testing the max load on our website before it became very slow, we wanted to test how the website performed in terms of how many database calls are made and how fast the website is (for a user).</p>
+                    <h3>Why we did it</h3>
+                    <p>The stress testing tested how much volume the website could take but the performance test checks how fast the system is. This would help us know the average time the user spends on getting information and if we need to improve the efficiency of the website or not.</p>
+                    <h3>How we did it</h3>
+                    <p>We used Django Silk which is a live profiling and inspection tool for the django framework. This helped us see how long each page took to respond and all the information about a request (the SQL calls and the request headers with response).</p>
+                    <h3>Results</h3>
                     <figure><img src="img/performance0.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.1 - Summary of the best and worst processing time of a call</figcaption></figure> 
                     <figure><img src="img/performance1.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.2 - Summary of an SQL execution for a request</figcaption></figure> 
                     <figure><img src="img/performance2.png" class="center-block" width="100%"><figcaption class="text-center">Fig 2.3 - Summary of a response for a request</figcaption></figure> 
                     
                     <h1 id="unit-testing">Unit and Integration Testing</h1>
-                    <p>We used the Test-driven development approach for the project. This meant we wrote failing unit tests for new functions/features before we implemented them. Once we wrote the tests we then added the functions/features. This then ensured the tests passed. Using this approach, we were able to test all the main functionalities of the website and any changes we made throughout the development cycle which could have caused the application to break were caught by the unit tests. We wrote unit and integration tests for the forms, the views and the models.<br><b>Form tests</b> - These tests checked if the form used in the website captured the correct data. This was to ensure any wrong format of data wasn't accepted and saved into the database as this would cause database to lose its integrity. Example of these tests include sending text longer than the max text for a field, wrong format of the data, text in an integer field and empty data for required fields.<br><b>Model tests</b> - These tests ensured that the website was able to store the correct data in the correct table. It also checked if the type of data for a field was correct and it checked if relations were maintained between tables. It also checked if one data was removed, were the relevant data that had a relation with the deleted data removed as well i.e if a child was deleted, were the diary log of the child also deleted.<br><b>Views tests</b> - These tests ensured that the correct html page was rendered and returned for a specific url. It also ensured all the correct and relevant information for a url were sent to the user. The tests also checked if the ajax scripts were working correctly and if no page that requires a login could be seen without logging in.<br><br>The jenkins server ran these tests on a new code before updating the website with the latest code.</p>
+                    <h3>Description</h3>
+                    <p>We wrote unit tests to ensure the core functionalities of the website were working and if we made any changes to the website, the tests would be able to detect if the changes affected the core functionalities of the website</p>
+                    <h3>Why we did it</h3>
+                    <p>We used the Test-driven development approach for the project. This meant we wrote failing unit tests for new functions/features before we implemented them. Once we wrote the tests we then added the functions/features. This then ensured the tests passed. Using this approach, we were able to test all the main functionalities of the website and any changes we made throughout the development cycle which could have caused the application to break were caught by the unit tests.</p>
+                    <h3>How we did it</h3>
+                    <p>We wrote unit and integration tests for the forms, the views and the models.<br><b>Form tests</b> - These tests checked if the form used in the website captured the correct data. This was to ensure any wrong format of data wasn't accepted and saved into the database as this would cause database to lose its integrity. Example of these tests include sending text longer than the max text for a field, wrong format of the data, text in an integer field and empty data for required fields.<br><b>Model tests</b> - These tests ensured that the website was able to store the correct data in the correct table. It also checked if the type of data for a field was correct and it checked if relations were maintained between tables. It also checked if one data was removed, were the relevant data that had a relation with the deleted data removed as well i.e if a child was deleted, were the diary log of the child also deleted.<br><b>Views tests</b> - These tests ensured that the correct html page was rendered and returned for a specific url. It also ensured all the correct and relevant information for a url were sent to the user. The tests also checked if the ajax scripts were working correctly and if no page that requires a login could be seen without logging in.<br><br>The jenkins server ran these tests on a new code before updating the website with the latest code.</p>
                     <figure><img src="img/unittest.png" class="center-block" width="100%"><figcaption class="text-center">Fig 3.1 - Success Message when all tests pass</figcaption></figure> 
+                    
                     <h1 id="acceptance-testing">Acceptance Testing</h1>
-                    <h3>Test Cases</h3>
-                    <p>On the 20th of February our client carried out a parents panel test. A group of parents were asked to carry out tasks on the website that we had set before hand. Below are a list of the tasks the parents carried out and the results from those tasks . The tasks were carried out on a windows 10 desktop using Chrome as the browser.</p>
+                    <h3>Description</h3>
+                    <p>We asked parents and our client to carry out certain tasks on the website to see how well they were able to carry out thoses tasks.</p>
+                    <h3>Why we did it</h3>
+                    <p>Acceptance testing helped us carry out the main actions that a normal user would carry out. We used actual users because they would interact with the website the most. This testing helped us to check if the users were able to carry out the main tasks without assistance and with ease. If users felt some fucntionalities were hard to use, they would tend to not use it. This would not be good for the website as less users would use it.</p>
+                    <h3>How we did it</h3>
+                    <p>On the 20th of February our client carried out a parents panel test. A group of parents were asked to carry out tasks on the website that we had set before hand. Below are a list of the tasks the parents carried out and the results from those tasks</p>
+                    <h3>Results (Test Cases)</h3>
+                    <p>The tasks were carried out on a windows 10 desktop using Chrome as the browser.</p>
                     <div id="acceptance-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                           <li data-target="#acceptance-carousel" data-slide-to="0" class="active"></li>
@@ -249,7 +279,13 @@
                         </a>
                     </div>
                     <h3>Feedback from Client and Testers</h3>
-                    <p>The testers included fellow CS students at UCL and parents from the parents panel. Below is a list of the feedback received from the testers and the client</p>
+                    <h3>Description</h3>
+                    <p>To know how well the website was in terms of the ease of use and the design, we needed to get feedback from actual users and our client. This feedback could be used to improve the website to make it better.</p>
+                    <h3>Why we did it</h3>
+                    <p>Getting feedback from the users can help us to improve the website since the users will give an honest opinion about the website as they dont have any stake in the website. The feedback will also be crusial to understand what we were doing right and what we were doing wrong.</p>
+                    <h3>How we did it</h3>                    
+                    <p>The testers included fellow CS students at UCL and parents from the parents panel. We asked them questions about the website in terms of the designs and fucntionalities.</p>
+                    <h3>Results</h3>
                     <table>
                         <thead>
                             <tr>
@@ -314,10 +350,21 @@
                     </table>
                     
                     <h1 id="responsive-testing">Responsive design / UI Testing</h1>
-                    <p>Through the unit and integration tests we were able to check if our backend code was correct. However, we also needed to test our front end code. These tests included checking if the form was visible, the forms could be filled and submitted. The buttons did what they were meant to do and to also check all the information was visible to the user. For front end testing we decided to use Selenium (with headless webdriver to run the tests in the jenkins server). This started an instance of the browser, without opening an actual browser, and then started going through each page and checking if the elements that should be in a page are actually there.To check if the website was responsive we used Google Chrome Inspect to check how the web page looked like on different screen sizes.</p>
+                    <h3>Description</h3>
+                    <p>Through the unit and integration tests we were able to check if our backend code was correct. However, we also needed to test our front end code. These tests included checking if the form was visible, the forms could be filled and submitted. The buttons did what they were meant to do and to also check all the information was visible to the user.</p>
+                    <h3>Why we did it</h3>
+                    <p>Checking the front end ensured that the users were able to use the website and got the correct response for the forms they submitted or the buttons the clicked on. Checking if the website is responsive helped us to ensure that users could see the website properly with the correct design and font size on a wide varity of display sizes from mobile phones to desktops.</p>
+                    <h3>How we did it</h3>
+                    <p>For front end testing we decided to use Selenium (with headless webdriver to run the tests in the jenkins server). This started an instance of the browser, without opening an actual browser, and then started going through each page and checking if the elements that should be in a page are actually there.To check if the website was responsive we used Google Chrome Inspect to check how the web page looked like on different screen sizes.</p>
 
                     <h1 id="compatibility-testing">Compatibility Testing</h1>
-                    <p>To test if the website was compatible on many browsers we decide to use an online tool called http://browsershots.org. This takes a screenshot of the website on around 168 browsers. We manually went through the list of screenshots for each browser to create the following compatible browsers and their versions:</p>
+                    <h3>Description</h3>
+                    <p>Different users can access the website from different web browsers. This testing checked if the website worked for all website and which minimum version was required to use the website</p>
+                    <h3>Why we did it</h3>
+                    <p>We wanted the website to know which browsers could be used to access the website. This would help the users know whcih broweser they should use if they wanted to access the website so that they could get the best experience of the website.</p>
+                    <h3>How we did it</h3>
+                    <p>To test if the website was compatible on many browsers we decide to use an online tool called http://browsershots.org. This takes a screenshot of the website on around 168 browsers. We manually went through the list of screenshots for each browser.</p>
+                    <h3>Results</h3>
                     <table class="text-center">
                         <thead>
                             <tr>
